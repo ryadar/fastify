@@ -606,7 +606,8 @@ function build (options) {
         config,
         _fastify._errorHandler,
         opts.bodyLimit,
-        opts.logLevel
+        opts.logLevel,
+        opts.wrapValidationError
       )
 
       try {
@@ -663,7 +664,7 @@ function build (options) {
     return _fastify
   }
 
-  function Context (schema, handler, Reply, Request, contentTypeParser, config, errorHandler, bodyLimit, logLevel) {
+  function Context (schema, handler, Reply, Request, contentTypeParser, config, errorHandler, bodyLimit, logLevel, wrapValidationError) {
     this.schema = schema
     this.handler = handler
     this.Reply = Reply
@@ -681,6 +682,7 @@ function build (options) {
     }
     this.logLevel = logLevel
     this._404Context = null
+    this.wrapValidationError = wrapValidationError
   }
 
   function inject (opts, cb) {
